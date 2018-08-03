@@ -1,5 +1,5 @@
 hash: 02746aaccf099a36a6efa5fc005cea0932b5d8d562b980755f5aaffe1e54e4ed
-updated: 2016-05-18T16:01:55.425231233-04:00
+updated: 2018-08-03T12:15:38.033075904+02:00
 imports:
 - name: github.com/cloudfoundry-community/go-cfenv
   version: 18fa650ff6b7b4f6bd8f8611408d1533eb54a918
@@ -13,6 +13,8 @@ imports:
   version: 9c19ed558d5df4da88e2ade9c8940d742aef0e7e
 - name: github.com/mitchellh/mapstructure
   version: d2dd0262208475919e1a362f675cfc0e7c10e905
+- name: github.com/twinj/uuid
+  version: 7bbe408d339787c56ec15568c947c0959db1b275
 - name: github.com/unrolled/render
   version: 198ad4d8b8a4612176b804ca10555b222a086b40
-devImports: []
+testImports: []
