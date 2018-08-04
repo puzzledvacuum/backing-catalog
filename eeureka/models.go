@@ -61,3 +61,8 @@ type EurekaInstance struct {
 type EurekaPort struct {
 	Port int `json:"$"`
 }
+
+type EurekaHost struct {
+	HostName string `json:"host"`
+	Port     int    `json:"port"`
+}

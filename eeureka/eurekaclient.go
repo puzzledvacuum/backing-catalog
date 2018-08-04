@@ -136,7 +136,7 @@ func GetServiceInstances(appName string) ([]EurekaInstance, error) {
 			fmt.Println("Problem parsing JSON response from Eureka: " + err.Error())
 			return nil, err
 		}
-		fmt.Print(m.Application)
+		// fmt.Print(m.Application.Instance[0])
 		return m.Application.Instance, nil
 	}
 }
@@ -182,6 +182,55 @@ func heartbeat(appName string) {
 	}
 	fmt.Println("Issuing heartbeat to " + heartbeatAction.Url)
 	doHttpRequest(heartbeatAction)
+}
+
+func Checkpulse(appName string, pulse chan bool) {
+
+	// go func() {
+	// 	time.Sleep(time.Second * 30)
+	// 	app, err := GetServiceInstances(appName)
+	// 	if err != nil {
+	// 		fmt.Printf("Waiting for pulse, %v\n", err)
+	// 		ch1 <- false
+	// 	}
+	// 	if len(app) > 0 {
+	// 		fmt.Println("Pulse found...")
+	// 		fmt.Println("HostName:", app[0].HostName)
+	// 		fmt.Println("Port:", app[0].Port.Port)
+	// 		ch1 <- true
+	// 	}
+	// }()
+	// for {
+	// 	go func() {
+	// 		time.Sleep(time.Second * 5)
+	// 		app, err := GetServiceInstances(appName)
+	// 		if err != nil {
+	// 			fmt.Printf("Waiting for pulse, %v\n", err)
+	// 			pulse <- false
+	// 		}
+	// 		if len(app) > 0 {
+	// 			fmt.Println("Pulse found...")
+	// 			fmt.Println("HostName:", app[0].HostName)
+	// 			fmt.Println("Port:", app[0].Port.Port)
+	// 			pulse <- true
+	// 		}
+	// 	}()
+	// }
+	go func() {
+		time.Sleep(time.Second * 5)
+		app, err := GetServiceInstances(appName)
+		if err != nil {
+			fmt.Printf("Waiting for pulse, %v\n", err)
+			pulse <- false
+		}
+		if len(app) > 0 {
+			fmt.Println("Pulse found...")
+			fmt.Println("HostName:", app[0].HostName)
+			fmt.Println("Port:", app[0].Port.Port)
+			pulse <- true
+		}
+	}()
+
 }
 
 func deregister(appName string) {
